@@ -44,6 +44,9 @@ void FindYoungestByProfession(TitleArr *v) {
     for (int i = 0; i < N; ++i) {
         printPersonArr(res[i]);
     }
+    for (int i = 0; i < N; ++i) {
+        free(res[i]->arr);
+    }
     free(res);
 }
 
@@ -82,6 +85,9 @@ void FindOldestByProfession(TitleArr *v) {
     }
     for (int i = 0; i < N; ++i) {
         printPersonArr(res[i]);
+    }
+    for (int i = 0; i < N; ++i) {
+        free(res[i]->arr);
     }
     free(res);
 }

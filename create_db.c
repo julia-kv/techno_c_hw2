@@ -41,6 +41,8 @@ int CreateDb() {
     printf("The oldest workers:\n");
     FindOldestByProfession(db);
 
+    free(db->arr->persons);
+    free(db->arr);
     free(db);
     return 0;
 }

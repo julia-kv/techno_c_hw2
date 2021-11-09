@@ -52,6 +52,12 @@ int CreateDb() {
     FindOld(db);
     dlclose(library);
 
+    for (int i = 0; i < db->curr_idx; ++i) {
+        for (int j = 0; j < db->arr[i].persons->curr_idx; ++i) {
+            free(&(db[i].arr->persons->arr[j]));
+        }
+        free(&(db->arr[i]));
+    }
     free(db);
     return 0;
 }
