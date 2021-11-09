@@ -1,0 +1,7 @@
+Bob Green eng 0 30 10 2
+Met Rose eng 0 30 20 1
+WQMet Rfdose eng 0 29 8 1
+AVMet Rodfse eng 0 29 20 1
+VMQet Rofwse eng 0 45 10 1
+A Alex teacher 0 30 10 1
+Bob Green sailor 0 30 10 2
