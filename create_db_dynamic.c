@@ -1,7 +1,11 @@
+#include <dlfcn.h>
 #include <stdio.h>
-#include "find.h"
+#include "structs.h"
 
-Person *GetPerson(FILE *f) {
+void *library;
+void (*Find)(TitleArr *v);
+
+Person* GetPerson(FILE *f) {
     Person *new_person;
     new_person = (Person*) malloc(sizeof(Person));
     int sex, age, salary, experience;
@@ -16,10 +20,13 @@ Person *GetPerson(FILE *f) {
 }
 
 void CreateDb() {
+
     TitleArr *db = (TitleArr *) malloc(sizeof(TitleArr));
+    pthread_mutex_init (&(db->mutex), NULL);
     db->arr = (Title *) malloc(sizeof(Title));
     db->max_size = 1;
     db->curr_idx = 0;
+    db->arr->persons = (PersonArr*) malloc(sizeof(PersonArr));
     FILE *f = fopen("../data.txt", "r");
     if (f == NULL) {
         fprintf(stderr, "Failed to open file\n");
@@ -35,8 +42,10 @@ void CreateDb() {
     }
 
     printf("The youngest workers:\n");
-    FindYoungestByProfession(db);
 
-    free(db);
+    library = dlopen("./db_lib_dynamic.so", RTLD_LAZY);
+    Find = dlsym(library, "FindYoungestByProfession");
+    Find(db);
+    dlclose(library);
 }
 

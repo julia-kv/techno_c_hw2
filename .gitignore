@@ -3,3 +3,4 @@ cmake-build-debug
 build
 .main
 .test_db
+.test_db_dynamic

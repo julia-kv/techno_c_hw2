@@ -30,10 +30,10 @@ typedef struct {
 } Title;
 
 typedef struct {
-    pthread_mutex_t mutex;
     Title* arr;
     size_t max_size;
     size_t curr_idx;  // next available element
+    pthread_mutex_t mutex;
 } TitleArr;
 
 void copy_worker(Person *p1, Person *p2);

@@ -1,3 +1,4 @@
+
 #include "structs.h"
 
 #define NTHREADS 2
@@ -31,8 +32,6 @@ void FindYoungestByProfession(TitleArr *v) {
     int err;
     size_t N = v->curr_idx;
     PersonArr** res = malloc(N*sizeof(PersonArr*));
-    //int j = 0;
-    //for (int i = 0; i < N; ++i) {
     int k = N / NTHREADS;
     for (int i = 0; i < k; ++i) {
         for (int j = 0; j < NTHREADS && i * NTHREADS + j < N; ++j) {
@@ -47,4 +46,5 @@ void FindYoungestByProfession(TitleArr *v) {
     for (int i = 0; i < N; i++) {
         printPersonArr(res[i]);
     }
+    free(res);
 }
