@@ -5,9 +5,7 @@ set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 SET(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -pthread")
 
-option(IS_STATIC "Use static library" ON)
-
-#create libraries
+option(IS_STATIC "static_library" ON)
 
 set(LIB_SOURCE_FILES structs.c create_db.c find.c structs.h find.h create_database.h)
 add_library(db_lib STATIC ${LIB_SOURCE_FILES})
@@ -28,4 +26,4 @@ find_package(Threads)
 
 include_directories(${GTEST_INCLUDE_DIRS})
 add_executable(test_db test.cpp)
-target_link_libraries(test_db ${GTEST_LIBRARIES} pthread db_lib_dynamic)
+target_link_libraries(test_db ${GTEST_LIBRARIES} pthread db_lib)

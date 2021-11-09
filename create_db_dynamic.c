@@ -3,7 +3,8 @@
 #include "structs.h"
 
 void *library;
-void (*Find)(TitleArr *v);
+void (*FindYoung)(TitleArr *v);
+void (*FindOld)(TitleArr *v);
 
 Person* GetPerson(FILE *f) {
     Person *new_person;
@@ -19,7 +20,7 @@ Person* GetPerson(FILE *f) {
     return new_person;
 }
 
-void CreateDb() {
+int CreateDb() {
 
     TitleArr *db = (TitleArr *) malloc(sizeof(TitleArr));
     pthread_mutex_init (&(db->mutex), NULL);
@@ -30,7 +31,7 @@ void CreateDb() {
     FILE *f = fopen("../data.txt", "r");
     if (f == NULL) {
         fprintf(stderr, "Failed to open file\n");
-        return;
+        return 1;
     }
     while (!feof(f)) {
         Person *person = GetPerson(f);
@@ -38,14 +39,20 @@ void CreateDb() {
     }
     if (fclose(f)) {
         fprintf(stderr, "Failed to close file\n");
-        return;
+        return 1;
     }
 
     printf("The youngest workers:\n");
 
     library = dlopen("./db_lib_dynamic.so", RTLD_LAZY);
-    Find = dlsym(library, "FindYoungestByProfession");
-    Find(db);
+    FindYoung = dlsym(library, "FindYoungestByProfession");
+    FindYoung(db);
+
+    FindOld = dlsym(library, "FindOldestByProfession");
+    FindOld(db);
     dlclose(library);
+
+    free(db);
+    return 0;
 }
 

@@ -36,7 +36,7 @@ typedef struct {
     pthread_mutex_t mutex;
 } TitleArr;
 
-void copy_worker(Person *p1, Person *p2);
+int copy_worker(Person *p1, Person *p2);
 
 int Grow(PersonArr *v);
 
@@ -48,7 +48,6 @@ int PersonArrInitInTitle(TitleArr **v);
 
 int GrowTitle(TitleArr *v);
 
-//int PushBackTitle(TitleArr *v, char* new_title, Person* new_person);
 int PushBackTitle(TitleArr **titles, char* new_title, Person* new_person);
 
 void printPersonArr(PersonArr *v);
